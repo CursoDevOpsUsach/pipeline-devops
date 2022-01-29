@@ -21,7 +21,7 @@ pipeline {
         )
         string(
             name:'stages',
-            description: 'Ingrese los stages para ejecutar'
+            description: 'Ingrese los stages para ejecutar',
             trim: true
         )
     }
