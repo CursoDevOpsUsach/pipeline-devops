@@ -24,6 +24,7 @@ pipeline {
         stage("Pipeline"){
             steps {
                 script{
+                env.STAGE = ""
                   switch(params.compileTool)
                     {
                         case 'Maven':
@@ -46,7 +47,7 @@ pipeline {
             slackSend color: 'good', message: "[duribef] [${JOB_NAME}] [$compileTool] Ejecucion Exitosa", teamDomain: 'dipdevopsusac-tr94431', tokenCredentialId: 'slack-duribef'
         }
         failure {
-            slackSend color: 'danger', message: "[duribef] [${JOB_NAME}] [$compileTool] Ejecucion fallida en stage [${BUILD_ID}]", teamDomain: 'dipdevopsusac-tr94431', tokenCredentialId: 'slack-duribef'
+            slackSend color: 'danger', message: "[duribef] [${JOB_NAME}] [$compileTool] Ejecucion fallida en stage [${env.STAGE}]", teamDomain: 'dipdevopsusac-tr94431', tokenCredentialId: 'slack-duribef'
         }
         }
 }
