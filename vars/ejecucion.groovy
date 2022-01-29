@@ -19,23 +19,29 @@ pipeline {
             choices: ['Maven', 'Gradle'],
             description: 'Seleccione herramienta de compilacion'
         )
+        string(
+            name:'stages',
+            description: 'Ingrese los stages para ejecutar'
+            trim: true
+        )
     }
     stages {
         stage("Pipeline"){
             steps {
                 script{
+                    sh "env"
                 env.STAGE = ""
                   switch(params.compileTool)
                     {
                         case 'Maven':
                             //def ejecucion = load 'maven.groovy'
                             //ejecucion.call()
-                            maven.call()
+                            maven.call(params.stages)
                         break;
                         case 'Gradle':
                             //def ejecucion = load 'gradle.groovy'
                             //ejecucion.call()
-                            gradle.call()
+                            gradle.call(params.stages)
                         break;
                     }
                 }
